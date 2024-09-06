@@ -1,21 +1,27 @@
+import home from '../public/icons/home.svg'
+import myBank from '../public/icons/dollar-circle.svg'
+import tran from '../public/icons/transaction.svg'
+import mon from '../public/icons/payment-transfer.svg'
+
+
 export const sidebarLinks = [
   {
-    imgURL: "/icons/home.svg",
+    imgURL: home,
     route: "/",
     label: "Home",
   },
   {
-    imgURL: "/icons/dollar-circle.svg",
+    imgURL: myBank,
     route: "/my-banks",
     label: "My Banks",
   },
   {
-    imgURL: "/icons/transaction.svg",
+    imgURL: tran,
     route: "/transaction-history",
     label: "Transaction History",
   },
   {
-    imgURL: "/icons/money-send.svg",
+    imgURL: mon,
     route: "/payment-transfer",
     label: "Transfer Funds",
   },
