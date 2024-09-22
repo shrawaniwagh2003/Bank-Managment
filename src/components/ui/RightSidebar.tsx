@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import plus from '../../public/icons/plus.svg'
 import { Divide } from 'lucide-react'
+import BankCards from './BankCards'
 
 const RightSidebar = ({user,transactions,banks}: RightSidebarProps) => {
   return (
@@ -34,9 +35,19 @@ const RightSidebar = ({user,transactions,banks}: RightSidebarProps) => {
         </div>
         {banks?.length > 0 && (
           <div  className='relative flex flex-1 flex-col items-center justify-center gap-5'>
-            <div className='relative z-10'>Bank Card 1</div>
+            <div className='relative z-10'><BankCards
+            key={banks[0].$id}
+            account={banks[0]}
+            userName={`${user.firstName} ${user.lastName}`}
+            showBalance={false}/>
+            </div>
             {banks[1] && (
-              <div className='absolute right-0 top-8 z-0 w-[90%]'>Bank Card 2</div>
+              <div className='absolute right-0 top-8 z-0 w-[90%]'><BankCards
+              key={banks[1].$id}
+            account={banks[1]}
+            userName={`${user.firstName} ${user.lastName}`}
+            showBalance={false}/>
+            </div>
             )}
           </div>
         )}
