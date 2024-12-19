@@ -3,9 +3,11 @@ import RightSidebar from '@/components/ui/RightSidebar'
 import TotalBalanceBox from '@/components/ui/TotalBalanceBox'
 import { Section } from 'lucide-react'
 import React from 'react'
+import { getLoggedInUser } from '../../../lib/actions/user.actions'
 
-const Home = () => {
-  const loggedIn = {firstName : 'Shrawani', lastName : 'Wagh', email:"waghshrawani2003@gmail.com"}
+const Home = async () => {
+  const loggedIn = await getLoggedInUser();
+  
   return (
     <section className='home'>
       <div className='home-content'>
@@ -13,7 +15,7 @@ const Home = () => {
        <HeaderBox
        type="greeting"
        title="Welcome"
-       user= {loggedIn?.firstName || 'Guest'}
+       user= {loggedIn?.name || 'Guest'}
        subtext="access and manage your transactions efficiently "/>
        <TotalBalanceBox
        accounts = {[]}

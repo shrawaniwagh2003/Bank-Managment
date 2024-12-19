@@ -2,14 +2,21 @@ import Slidebar from "@/components/ui/Slidebar";
 import logo from '../../public/icons/logo.svg'
 import Image from "next/image";
 import MobileNav from "@/components/ui/MobileNav";
+import { getLoggedInUser } from "../../../lib/actions/user.actions";
+import { redirect, useRouter } from "next/navigation";
 Image
 
-export default function RootLayout({
+export default  async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const loggedIn = {firstName : 'shrawani', lastName: 'Wagh'}
+
+
+  const loggedIn = await getLoggedInUser();
+
+  if(!loggedIn) redirect('/sign-in')
+
   return (
 <main className="flex h-screen w-full font-inter">
     <Slidebar user={loggedIn}/>
