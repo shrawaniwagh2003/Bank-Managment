@@ -4,7 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import img from "../../public/icons/logo.png";
-
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -19,12 +18,16 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import CustomInput from '../CustomInput';
-import { authFormSchema } from '../../../lib/utils';
+// import CustomInput from './CustomInput';
+
+// import { authFormSchema } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { getLoggedInUser, signIn, SignUp } from '../../../lib/actions/user.actions';
-// import PlaidLink from './PlaidLink';
+// import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions';
+import PlaidLink from './PlaidLink';
+import { authFormSchema } from '../../../lib/utils';
+import { signIn, signUp } from '../../../lib/actions/user.actions';
+import CustomInput from '../CustomInput';
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -49,7 +52,7 @@ const AuthForm = ({ type }: { type: string }) => {
       try {
         // Sign up with Appwrite & create plaid token
         
-        if (type === 'sign-up') {
+        if(type === 'sign-up') {
           const userData = {
             firstName: data.firstName!,
             lastName: data.lastName!,
@@ -60,38 +63,27 @@ const AuthForm = ({ type }: { type: string }) => {
             dateOfBirth: data.dateOfBirth!,
             ssn: data.ssn!,
             email: data.email,
-            password: data.password,
-          };
-        
-          const newUser = await SignUp(userData);
-        
-          if (!newUser) {
-            console.error("Failed to fetch new user.");
-            return;
+            password: data.password
           }
-        
+
+          const newUser = await signUp(userData);
+
           setUser(newUser);
-          console.log("New user state:", newUser);  // Check if user is set correctly
         }
-        
-          
+
         if(type === 'sign-in') {
           const response = await signIn({
             email: data.email,
             password: data.password,
           })
 
-          if(response) {
-            router.push('/')}
+          if(response) router.push('/')
         }
-      } 
-      
-      catch (error) {
-       console.log(error);
+      } catch (error) {
+        console.log(error);
       } finally {
-        setIsLoading(false); // Ensure this runs regardless
+        setIsLoading(false);
       }
-      
     }
 
   return (
@@ -99,7 +91,7 @@ const AuthForm = ({ type }: { type: string }) => {
       <header className='flex flex-col gap-5 md:gap-8'>
           <Link href="/" className="cursor-pointer flex items-center gap-1">
             <Image 
-              src={img}
+              src="/icons/logo.svg"
               width={34}
               height={34}
               alt="Horizon logo"
@@ -126,7 +118,7 @@ const AuthForm = ({ type }: { type: string }) => {
       </header>
       {user ? (
         <div className="flex flex-col gap-4">
-          {/* <PlaidLink user={user} variant="primary" /> */}
+          <PlaidLink user={user} variant="primary" />
         </div>
       ): (
         <>
