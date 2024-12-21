@@ -83,7 +83,7 @@ Ensure the following are installed on your system:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/username/project-name.git
+   git clone https://github.com/shrawaniwagh2003/Bank-Managment.git
    cd project-name
    ```
 
